@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
     <header class="header">
@@ -32,14 +33,14 @@
         <section class="hero">
             <div class="hero-content">
                 <div class="hero-text">
-                    <h2 class="hero-title">The essence of innovation</h2>
+                    <h2 class="hero-title">Pacific Bridge Innovation</h2>
                     <p class="hero-subtitle">
-                        Quintessence LLC operates at the intersection of media, music, and technology, 
-                        crafting meaningful experiences from the heart of Hawaii.
+                        Quintessence LLC leverages Hawaii's unique position as the crossroads of the Pacific, 
+                        connecting Asia and the Americas through media, music, and transformative initiatives.
                     </p>
                     <div class="hero-location">
-                        <span class="location-icon">📍</span>
-                        <span>Hawaii, United States</span>
+                        <span class="location-icon">🌊</span>
+                        <span>Hawaii • Pacific Confluence</span>
                     </div>
                 </div>
             </div>
@@ -57,24 +58,24 @@
                 <div class="section-header">
                     <h3 class="section-title">About Quintessence</h3>
                     <p class="section-subtitle">
-                        We embody the fifth element - the perfect essence that brings harmony to complex systems.
+                        We embody the fifth element - leveraging Hawaii's strategic position as the Pacific's cultural and economic bridge.
                     </p>
                 </div>
                 <div class="about-grid">
                     <div class="about-card">
                         <div class="card-icon">🌺</div>
-                        <h4>Hawaiian Roots</h4>
-                        <p>Based in the beautiful islands of Hawaii, we bring the spirit of aloha to everything we create.</p>
+                        <h4>Pacific Gateway</h4>
+                        <p>Strategically positioned in Hawaii, we serve as a natural bridge connecting Asia-Pacific markets with the Americas, fostering cross-cultural collaboration.</p>
                     </div>
                     <div class="about-card">
                         <div class="card-icon">⚡</div>
-                        <h4>Innovation Legacy</h4>
-                        <p>Drawing from our fintech heritage, we continue to explore the frontiers of technology and creativity.</p>
+                        <h4>Innovation Catalyst</h4>
+                        <p>Drawing from diverse Pacific traditions and modern innovation, we create solutions that resonate across cultures and continents.</p>
                     </div>
                     <div class="about-card">
                         <div class="card-icon">🎵</div>
-                        <h4>Creative Expression</h4>
-                        <p>From media to music, we curate and create content that resonates with authentic voices.</p>
+                        <h4>Cultural Synthesis</h4>
+                        <p>From media to music, we curate content that celebrates the rich tapestry of Pacific cultures while building bridges to global audiences.</p>
                     </div>
                 </div>
             </div>
@@ -83,9 +84,9 @@
         <section id="ventures" class="ventures">
             <div class="container">
                 <div class="section-header">
-                    <h3 class="section-title">Our Ventures</h3>
+                    <h3 class="section-title">Our Pacific Ventures</h3>
                     <p class="section-subtitle">
-                        A carefully curated portfolio of media, technology, and creative assets.
+                        A carefully curated portfolio connecting Pacific communities and fostering cross-cultural innovation.
                     </p>
                 </div>
                 <div class="ventures-grid">
@@ -94,24 +95,24 @@
                             <h4>Ala Moana Letter</h4>
                             <span class="venture-tag">Media</span>
                         </div>
-                        <p>Thoughtful commentary and insights delivered through our Substack publication, connecting communities across the Pacific.</p>
-                        <a href="#" class="venture-link">Learn More →</a>
+                        <p>Thoughtful Pacific commentary and insights delivered through our Substack publication, bridging perspectives from Hawaii to the broader Asia-Pacific region.</p>
+                        <a href="https://alamoanaletter.substack.com" class="venture-link" target="_blank">Read Latest →</a>
                     </div>
                     <div class="venture-card">
                         <div class="venture-header">
                             <h4>Music Licensing</h4>
                             <span class="venture-tag">Creative</span>
                         </div>
-                        <p>Curated collection of musical works and licensing opportunities that bridge cultures and genres.</p>
+                        <p>Curated collection of Pacific musical works and licensing opportunities that bridge cultures, from traditional Hawaiian sounds to contemporary fusion.</p>
                         <a href="#" class="venture-link">Explore →</a>
                     </div>
                     <div class="venture-card">
                         <div class="venture-header">
-                            <h4>Algorithmic Heritage</h4>
-                            <span class="venture-tag">Technology</span>
+                            <h4>Kibou for Maui</h4>
+                            <span class="venture-tag">Community</span>
                         </div>
-                        <p>Legacy innovations from our fintech era, representing years of research and development in financial technology.</p>
-                        <a href="#" class="venture-link">Discover →</a>
+                        <p>Supporting community resilience and hope (kibou) initiatives in Maui, connecting local needs with Pacific-wide resources and innovation.</p>
+                        <a href="#" class="venture-link">Learn More →</a>
                     </div>
                 </div>
             </div>
@@ -121,29 +122,36 @@
             <div class="container">
                 <div class="contact-content">
                     <div class="contact-info">
-                        <h3>Get in Touch</h3>
-                        <p>We're always open to meaningful conversations and collaborative opportunities.</p>
+                        <h3>Connect Across the Pacific</h3>
+                        <p>We're always open to meaningful conversations and collaborative opportunities that bridge the Pacific.</p>
                         <div class="contact-details">
                             <div class="contact-item">
-                                <span class="contact-icon">🌊</span>
-                                <span>Based in Hawaii</span>
+                                <span class="contact-icon">🏝️</span>
+                                <span>Hawaii • Pacific Hub</span>
                             </div>
                             <div class="contact-item">
                                 <span class="contact-icon">✉️</span>
                                 <span>hello@quintessence.llc</span>
                             </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">🌐</span>
+                                <span>Bridging Asia-Pacific & Americas</span>
+                            </div>
                         </div>
                     </div>
                     <div class="contact-form">
-                        <form>
+                        <form id="contact-form">
                             <div class="form-group">
-                                <input type="text" placeholder="Your Name" required>
+                                <input type="text" name="name" placeholder="Your Name" required>
                             </div>
                             <div class="form-group">
-                                <input type="email" placeholder="Your Email" required>
+                                <input type="email" name="email" placeholder="Your Email" required>
                             </div>
                             <div class="form-group">
-                                <textarea placeholder="Your Message" rows="4" required></textarea>
+                                <input type="text" name="organization" placeholder="Organization (Optional)">
+                            </div>
+                            <div class="form-group">
+                                <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
                             </div>
                             <button type="submit" class="btn-primary">Send Message</button>
                         </form>
@@ -158,7 +166,7 @@
             <div class="footer-content">
                 <div class="footer-brand">
                     <h4>Quintessence LLC</h4>
-                    <p>The essence of innovation from Hawaii</p>
+                    <p>Pacific bridge innovation from Hawaii</p>
                 </div>
                 <div class="footer-links">
                     <a href="#about">About</a>

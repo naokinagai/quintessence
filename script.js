@@ -1,5 +1,8 @@
 // Smooth scrolling for navigation links
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize EmailJS
+    emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
+    
     // Smooth scrolling for navigation links
     const navLinks = document.querySelectorAll('.nav-link');
     
@@ -39,22 +42,22 @@ document.addEventListener('DOMContentLoaded', function() {
         lastScrollTop = scrollTop;
     });
 
-    // Form handling
-    const contactForm = document.querySelector('.contact-form form');
+    // Enhanced form handling with EmailJS
+    const contactForm = document.getElementById('contact-form');
     
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
             // Get form data
-            const formData = new FormData(this);
-            const name = this.querySelector('input[type="text"]').value;
-            const email = this.querySelector('input[type="email"]').value;
-            const message = this.querySelector('textarea').value;
+            const name = this.querySelector('input[name="name"]').value;
+            const email = this.querySelector('input[name="email"]').value;
+            const organization = this.querySelector('input[name="organization"]').value;
+            const message = this.querySelector('textarea[name="message"]').value;
             
             // Simple validation
             if (!name || !email || !message) {
-                showNotification('Please fill in all fields.', 'error');
+                showNotification('Please fill in all required fields.', 'error');
                 return;
             }
             
@@ -63,9 +66,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Show success message (in a real implementation, you'd send this to a server)
-            showNotification('Thank you for your message! We\'ll get back to you soon.', 'success');
-            this.reset();
+            // Show sending notification
+            showNotification('Sending message across the Pacific...', 'info');
+            
+            // Prepare email parameters
+            const emailParams = {
+                from_name: name,
+                from_email: email,
+                organization: organization || 'Not specified',
+                message: message,
+                to_email: 'hello@quintessence.llc'
+            };
+            
+            // Try to send email via EmailJS (if configured)
+            if (typeof emailjs !== 'undefined' && emailjs.send) {
+                emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', emailParams)
+                    .then(function(response) {
+                        showNotification('Aloha! Your message has been sent successfully. We\'ll connect with you soon across the Pacific!', 'success');
+                        contactForm.reset();
+                    })
+                    .catch(function(error) {
+                        console.log('EmailJS Error:', error);
+                        // Fallback to mailto
+                        sendViaMailto(emailParams);
+                    });
+            } else {
+                // Fallback to mailto if EmailJS is not available
+                sendViaMailto(emailParams);
+            }
         });
     }
 
@@ -111,9 +139,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const ventureLinks = document.querySelectorAll('.venture-link');
     
     ventureLinks.forEach(link => {
+        // Skip the Ala Moana Letter link since it has a real URL
+        if (link.getAttribute('href') !== '#') {
+            return;
+        }
+        
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            showNotification('Feature coming soon! Stay tuned for updates.', 'info');
+            showNotification('Pacific venture details coming soon! Stay tuned for updates.', 'info');
         });
     });
 });
@@ -122,6 +155,31 @@ document.addEventListener('DOMContentLoaded', function() {
 function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
+}
+
+function sendViaMailto(emailParams) {
+    const subject = encodeURIComponent(`Pacific Connection from ${emailParams.from_name}`);
+    const body = encodeURIComponent(`
+Name: ${emailParams.from_name}
+Email: ${emailParams.from_email}
+Organization: ${emailParams.organization}
+
+Message:
+${emailParams.message}
+
+---
+Sent via Quintessence LLC Pacific Bridge Contact Form
+`);
+    
+    const mailtoLink = `mailto:hello@quintessence.llc?subject=${subject}&body=${body}`;
+    
+    try {
+        window.location.href = mailtoLink;
+        showNotification('Opening your email client to send the message...', 'success');
+        document.getElementById('contact-form').reset();
+    } catch (error) {
+        showNotification('Unable to open email client. Please send your message directly to hello@quintessence.llc', 'error');
+    }
 }
 
 function showNotification(message, type = 'success') {
@@ -141,12 +199,16 @@ function showNotification(message, type = 'success') {
         </div>
     `;
     
-    // Add styles
+    // Add styles with Pacific-themed colors
+    const bgColor = type === 'success' ? '#38b2ac' : 
+                   type === 'error' ? '#e53e3e' : 
+                   type === 'info' ? '#3182ce' : '#38b2ac';
+    
     notification.style.cssText = `
         position: fixed;
         top: 100px;
         right: 20px;
-        background: ${type === 'success' ? '#38b2ac' : type === 'error' ? '#e53e3e' : '#3182ce'};
+        background: ${bgColor};
         color: white;
         padding: 1rem 1.5rem;
         border-radius: 8px;
@@ -156,6 +218,7 @@ function showNotification(message, type = 'success') {
         transition: transform 0.3s ease;
         max-width: 400px;
         font-family: 'Inter', sans-serif;
+        border-left: 4px solid rgba(255, 255, 255, 0.3);
     `;
     
     const notificationContent = notification.querySelector('.notification-content');
@@ -175,7 +238,17 @@ function showNotification(message, type = 'success') {
         cursor: pointer;
         padding: 0;
         line-height: 1;
+        opacity: 0.8;
+        transition: opacity 0.3s ease;
     `;
+    
+    closeButton.addEventListener('mouseenter', function() {
+        this.style.opacity = '1';
+    });
+    
+    closeButton.addEventListener('mouseleave', function() {
+        this.style.opacity = '0.8';
+    });
     
     // Add to DOM
     document.body.appendChild(notification);
@@ -193,7 +266,8 @@ function showNotification(message, type = 'success') {
         }, 300);
     });
     
-    // Auto close after 5 seconds
+    // Auto close after duration based on message length
+    const duration = Math.max(5000, message.length * 50);
     setTimeout(() => {
         if (notification.parentNode) {
             notification.style.transform = 'translateX(100%)';
@@ -201,7 +275,7 @@ function showNotification(message, type = 'success') {
                 notification.remove();
             }, 300);
         }
-    }, 5000);
+    }, duration);
 }
 
 // Add loading animation
