@@ -100,6 +100,7 @@ h1, h2, h3, h4 {
     min-height: 100vh;
     display: flex;
     align-items: center;
+    justify-content: center;
     position: relative;
     padding: 8rem 2rem 4rem;
     background: linear-gradient(135deg, #ffffff 0%, #f7fafc 50%, #e6fffa 100%);
@@ -112,6 +113,12 @@ h1, h2, h3, h4 {
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: center;
+    width: 100%;
+}
+
+.hero-text {
+    text-align: left;
+    max-width: 500px;
 }
 
 .hero-title {
@@ -121,6 +128,7 @@ h1, h2, h3, h4 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    line-height: 1.1;
 }
 
 .hero-subtitle {
@@ -128,6 +136,25 @@ h1, h2, h3, h4 {
     color: #718096;
     margin-bottom: 2rem;
     line-height: 1.7;
+}
+
+/* Hero Badges */
+.hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.badge {
+    background: linear-gradient(135deg, rgba(56, 178, 172, 0.1), rgba(43, 108, 176, 0.1));
+    border: 1px solid rgba(56, 178, 172, 0.2);
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    color: #2d3748;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
 }
 
 .hero-location {
@@ -142,53 +169,159 @@ h1, h2, h3, h4 {
     font-size: 1.2rem;
 }
 
-/* Floating Elements */
+/* Pacific Bridge Visualization */
 .hero-visual {
     position: relative;
     height: 400px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.pacific-bridge {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 0.5rem;
+    box-sizing: border-box;
+}
+
+.bridge-element {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    max-width: 100px;
+    min-width: 70px;
+}
+
+.region-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #4a5568;
+    text-align: center;
+    line-height: 1.2;
+    white-space: nowrap;
+}
+
+.connection-dots {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #38b2ac, #2b6cb0);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.dot:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.dot:nth-child(3) {
+    animation-delay: 1s;
+}
+
+.bridge-center {
+    flex: 0 0 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: 0 0.5rem;
+}
+
+.hawaii-hub {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #38b2ac, #2b6cb0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    color: white;
+    font-weight: 600;
+    font-size: 0.8rem;
+    box-shadow: 0 10px 30px rgba(56, 178, 172, 0.3);
+}
+
+.hub-label {
+    position: relative;
+    z-index: 2;
+}
+
+.pulse-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 2px solid rgba(56, 178, 172, 0.5);
+    border-radius: 50%;
+    animation: pulseRing 3s ease-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes pulseRing {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+}
+
+/* Floating Elements */
 .floating-elements {
     position: absolute;
     width: 100%;
     height: 100%;
+    pointer-events: none;
 }
 
 .floating-element {
     position: absolute;
     border-radius: 50%;
-    background: linear-gradient(135deg, rgba(56, 178, 172, 0.1), rgba(43, 108, 176, 0.1));
-    animation: float 6s ease-in-out infinite;
+    background: linear-gradient(135deg, rgba(56, 178, 172, 0.08), rgba(43, 108, 176, 0.08));
+    animation: float 8s ease-in-out infinite;
 }
 
 .element-1 {
-    width: 120px;
-    height: 120px;
-    top: 20%;
-    left: 10%;
+    width: 60px;
+    height: 60px;
+    top: 10%;
+    left: 15%;
     animation-delay: 0s;
 }
 
 .element-2 {
-    width: 80px;
-    height: 80px;
-    top: 60%;
-    right: 20%;
-    animation-delay: 2s;
+    width: 40px;
+    height: 40px;
+    top: 70%;
+    right: 25%;
+    animation-delay: 3s;
 }
 
 .element-3 {
-    width: 60px;
-    height: 60px;
-    bottom: 30%;
-    left: 60%;
-    animation-delay: 4s;
+    width: 80px;
+    height: 80px;
+    bottom: 20%;
+    left: 70%;
+    animation-delay: 6s;
 }
 
 @keyframes float {
     0%, 100% { transform: translateY(0px) rotate(0deg); }
-    33% { transform: translateY(-20px) rotate(120deg); }
-    66% { transform: translateY(10px) rotate(240deg); }
+    33% { transform: translateY(-15px) rotate(120deg); }
+    66% { transform: translateY(8px) rotate(240deg); }
 }
 
 /* Section Styles */
@@ -227,25 +360,50 @@ section {
 
 .about-card {
     background: linear-gradient(135deg, #ffffff, #f7fafc);
-    padding: 2rem;
+    padding: 2.5rem;
     border-radius: 16px;
     text-align: center;
     border: 1px solid rgba(56, 178, 172, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 .about-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(56, 178, 172, 0.1);
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(56, 178, 172, 0.15);
+}
+
+.about-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(135deg, #38b2ac, #2b6cb0);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.about-card:hover::before {
+    transform: scaleX(1);
 }
 
 .card-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 1rem;
+    background: linear-gradient(135deg, #38b2ac, #2b6cb0);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
 }
 
 .about-card h4 {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     margin-bottom: 1rem;
     color: #2d3748;
 }
@@ -268,49 +426,55 @@ section {
 
 .venture-card {
     background: #ffffff;
-    padding: 2rem;
+    padding: 2.5rem;
     border-radius: 16px;
     border: 1px solid rgba(56, 178, 172, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
 }
 
 .venture-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(56, 178, 172, 0.1);
+    transform: translateY(-8px);
+    box-shadow: 0 25px 50px rgba(56, 178, 172, 0.15);
 }
 
 .venture-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .venture-header h4 {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     color: #2d3748;
 }
 
 .venture-tag {
     background: linear-gradient(135deg, #38b2ac, #2b6cb0);
     color: white;
-    padding: 0.25rem 0.75rem;
+    padding: 0.4rem 1rem;
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .venture-card p {
     color: #718096;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     line-height: 1.6;
 }
 
 .venture-link {
     color: #38b2ac;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
     transition: color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .venture-link:hover {
@@ -352,18 +516,28 @@ section {
     align-items: center;
     gap: 0.75rem;
     color: #4a5568;
+    padding: 0.5rem 0;
 }
 
 .contact-icon {
-    font-size: 1.2rem;
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, #38b2ac, #2b6cb0);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    flex-shrink: 0;
 }
 
-/* Form Styles */
+/* Enhanced Form Styles */
 .contact-form {
     background: linear-gradient(135deg, #f7fafc, #e6fffa);
-    padding: 2rem;
+    padding: 2.5rem;
     border-radius: 16px;
     border: 1px solid rgba(56, 178, 172, 0.1);
+    box-shadow: 0 10px 30px rgba(56, 178, 172, 0.05);
 }
 
 .form-group {
@@ -371,7 +545,8 @@ section {
 }
 
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
     width: 100%;
     padding: 1rem;
     border: 1px solid #e2e8f0;
@@ -379,10 +554,22 @@ section {
     font-family: inherit;
     font-size: 1rem;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.form-group select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
 }
 
 .form-group input:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.form-group select:focus {
     outline: none;
     border-color: #38b2ac;
     box-shadow: 0 0 0 3px rgba(56, 178, 172, 0.1);
@@ -395,15 +582,17 @@ section {
     padding: 1rem 2rem;
     border-radius: 8px;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(56, 178, 172, 0.3);
+    box-shadow: 0 15px 30px rgba(56, 178, 172, 0.4);
 }
 
 /* Footer */
@@ -434,6 +623,7 @@ section {
     color: #cbd5e0;
     text-decoration: none;
     transition: color 0.3s ease;
+    font-weight: 500;
 }
 
 .footer-links a:hover {
@@ -471,6 +661,57 @@ section {
         font-size: 2.5rem;
     }
     
+    .hero-visual {
+        height: 300px;
+    }
+    
+    .pacific-bridge {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1rem 0.5rem;
+        justify-content: center;
+    }
+    
+    .bridge-element {
+        flex-direction: row;
+        gap: 1rem;
+        max-width: none;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .bridge-center {
+        flex: none;
+        margin: 0;
+        order: 2;
+    }
+    
+    .bridge-element.asia {
+        order: 1;
+    }
+    
+    .bridge-element.americas {
+        order: 3;
+    }
+    
+    .connection-dots {
+        flex-direction: row;
+    }
+    
+    .hawaii-hub {
+        width: 60px;
+        height: 60px;
+        font-size: 0.7rem;
+    }
+    
+    .region-label {
+        font-size: 0.8rem;
+    }
+    
+    .hero-badges {
+        justify-content: center;
+    }
+    
     .section-title {
         font-size: 2rem;
     }
@@ -502,6 +743,34 @@ section {
     
     .nav-links {
         flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .hero-badges {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .hero-visual {
+        height: 250px;
+    }
+    
+    .pacific-bridge {
+        padding: 0.5rem;
+        gap: 1rem;
+    }
+    
+    .hawaii-hub {
+        width: 50px;
+        height: 50px;
+        font-size: 0.6rem;
+    }
+    
+    .region-label {
+        font-size: 0.7rem;
+    }
+    
+    .bridge-element {
         gap: 0.5rem;
     }
 } 
