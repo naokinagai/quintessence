@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     .catch(function(error) {
                         console.log('EmailJS Error:', error);
                         // Fallback to mailto
-                        sendViaMailto(emailParams);
+                        sendViaMailto(emailParamsz);
                     });
             } else {
                 // Fallback to mailto if EmailJS is not available
