@@ -55,11 +55,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const name = this.querySelector('input[name="name"]').value;
             const email = this.querySelector('input[name="email"]').value;
             const organization = this.querySelector('input[name="organization"]').value;
-            const interest = this.querySelector('select[name="interest"]').value;
             const message = this.querySelector('textarea[name="message"]').value;
             
             // Simple validation
-            if (!name || !email || !interest || !message) {
+            if (!name || !email || !message) {
                 showNotification('Please share all details to help us connect with your vision.', 'error');
                 return;
             }
@@ -77,7 +76,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 from_name: name,
                 from_email: email,
                 organization: organization || 'Independent',
-                interest: getInterestLabel(interest),
                 message: message,
                 to_email: 'hello@quintessence.llc'
             };
@@ -92,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     .catch(function(error) {
                         console.log('EmailJS Error:', error);
                         // Fallback to mailto
-                        sendViaMailto(emailParamsz);
+                        sendViaMailto(emailParams);
                     });
             } else {
                 // Fallback to mailto if EmailJS is not available
@@ -206,7 +204,6 @@ Vision for Pacific Cross-Sector Collaboration
 Name: ${emailParams.from_name}
 Email: ${emailParams.from_email}
 Organization: ${emailParams.organization}
-Area of Focus: ${emailParams.interest}
 
 Pacific Collaboration Vision:
 ${emailParams.message}
