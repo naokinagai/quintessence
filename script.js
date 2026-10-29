@@ -1,10 +1,6 @@
-// Smooth scrolling for navigation links
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize EmailJS
-    emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
-    
-    // Note: Current domain is quintsec.com, future domain may be quintessence.llc
-    
+    const CONTACT_EMAIL = 'hello@quintec.com';
+
     // Smooth scrolling for navigation links
     const navLinks = document.querySelectorAll('.nav-link');
     
@@ -34,68 +30,45 @@ document.addEventListener('DOMContentLoaded', function() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
         if (scrollTop > 100) {
-            header.style.background = 'rgba(255, 255, 255, 0.98)';
-            header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            header.style.background = 'linear-gradient(135deg, rgba(26, 32, 44, 0.98) 0%, rgba(23, 25, 35, 0.98) 100%)';
+            header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.35)';
         } else {
-            header.style.background = 'rgba(255, 255, 255, 0.95)';
-            header.style.boxShadow = 'none';
+            header.style.background = 'linear-gradient(135deg, #1a202c 0%, #171923 100%)';
+            header.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1)';
         }
         
         lastScrollTop = scrollTop;
     });
 
-    // Enhanced form handling with EmailJS
+    // Contact form — opens mail client with message to Quintessence
     const contactForm = document.getElementById('contact-form');
     
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Get form data
-            const name = this.querySelector('input[name="name"]').value;
-            const email = this.querySelector('input[name="email"]').value;
-            const organization = this.querySelector('input[name="organization"]').value;
-            const message = this.querySelector('textarea[name="message"]').value;
+            const name = this.querySelector('input[name="name"]').value.trim();
+            const email = this.querySelector('input[name="email"]').value.trim();
+            const organization = this.querySelector('input[name="organization"]').value.trim();
+            const message = this.querySelector('textarea[name="message"]').value.trim();
             
-            // Simple validation
             if (!name || !email || !message) {
-                showNotification('Please share all details to help us connect with your vision.', 'error');
+                showNotification('Please fill in your name, email, and message.', 'error');
                 return;
             }
             
             if (!isValidEmail(email)) {
-                showNotification('Please provide a valid email so we can continue the conversation.', 'error');
+                showNotification('Please enter a valid work email.', 'error');
                 return;
             }
             
-            // Show sending notification
-            showNotification('Connecting your vision with our Pacific collaboration network...', 'info');
-            
-            // Prepare email parameters
-            const emailParams = {
+            sendViaMailto({
                 from_name: name,
                 from_email: email,
-                organization: organization || 'Independent',
+                organization: organization || 'Not provided',
                 message: message,
-                to_email: 'hello@quintessence.llc'
-            };
-            
-            // Try to send email via EmailJS (if configured)
-            if (typeof emailjs !== 'undefined' && emailjs.send) {
-                emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', emailParams)
-                    .then(function(response) {
-                        showNotification('Aloha! Thank you for sharing your vision. We\'re excited to explore how we can build collaborative impact together and will connect with you soon.', 'success');
-                        contactForm.reset();
-                    })
-                    .catch(function(error) {
-                        console.log('EmailJS Error:', error);
-                        // Fallback to mailto
-                        sendViaMailto(emailParams);
-                    });
-            } else {
-                // Fallback to mailto if EmailJS is not available
-                sendViaMailto(emailParams);
-            }
+                to_email: CONTACT_EMAIL
+            });
         });
     }
 
@@ -155,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            showNotification('Exciting cross-sector collaboration initiatives coming soon! Connect with us to explore partnership opportunities.', 'info');
+            showNotification('Reach out via Contact and we\'ll discuss how we can help.', 'info');
         });
     });
 
@@ -197,31 +170,38 @@ function getInterestLabel(value) {
 }
 
 function sendViaMailto(emailParams) {
-    const subject = encodeURIComponent(`Pacific Collaboration Vision from ${emailParams.from_name}`);
-    const body = encodeURIComponent(`
-Vision for Pacific Cross-Sector Collaboration
+    const to = emailParams.to_email || 'hello@quintec.com';
+    const form = document.getElementById('contact-form');
+    const submitButton = form ? form.querySelector('button[type="submit"]') : null;
+    const originalButtonText = submitButton ? submitButton.textContent : '';
 
-Name: ${emailParams.from_name}
-Email: ${emailParams.from_email}
-Organization: ${emailParams.organization}
-
-Pacific Collaboration Vision:
-${emailParams.message}
-
----
-Submitted via Quintessence LLC Pacific Collaboration Platform
-Hawaii Innovation Hub • Pacific Regional Networks
-`);
-    
-    const mailtoLink = `mailto:hello@quintessence.llc?subject=${subject}&body=${body}`;
-    
-    try {
-        window.location.href = mailtoLink;
-        showNotification('Opening your email to continue the collaboration conversation...', 'success');
-        document.getElementById('contact-form').reset();
-    } catch (error) {
-        showNotification('Please reach out to us directly at hello@quintessence.llc to share your Pacific collaboration vision.', 'error');
+    if (submitButton) {
+        submitButton.textContent = 'Opening email...';
+        submitButton.disabled = true;
     }
+
+    const subject = encodeURIComponent(`BD inquiry from ${emailParams.from_name}`);
+    const body = encodeURIComponent(
+        `Name: ${emailParams.from_name}\n` +
+        `Email: ${emailParams.from_email}\n` +
+        `Organization: ${emailParams.organization}\n\n` +
+        `Opportunity / market:\n${emailParams.message}\n\n` +
+        `---\nSent from Quintessence LLC website contact form`
+    );
+
+    const mailtoLink = `mailto:${to}?subject=${subject}&body=${body}`;
+
+    // Same approach as tradina.com — open the visitor's mail app
+    window.location.href = mailtoLink;
+
+    setTimeout(() => {
+        if (submitButton) {
+            submitButton.textContent = originalButtonText;
+            submitButton.disabled = false;
+        }
+        showNotification('Email client opened! Please send the email from your email app.', 'success');
+        if (form) form.reset();
+    }, 1000);
 }
 
 function showNotification(message, type = 'success') {
